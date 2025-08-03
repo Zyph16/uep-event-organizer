@@ -13,6 +13,7 @@ body{
 .header{
     width: 100%;
     box-shadow: 0.5px 1px 0.5px 0.5px rgb(226, 226, 226);
+    background-color: #ffffff;
 }
 .navs{
     display: grid;
@@ -180,7 +181,7 @@ body{
   display: flex;
   position: absolute;
   top: 65%;
-  left: 52%;
+  left: 53%;
   transform: translate(-50%,-50%);
 }
 .about-us-card {
@@ -211,7 +212,7 @@ body{
   transform: rotateX(-15deg) rotateY(10deg);
   transition: 0.4s ease-out;
 }
-#card-1 li{
+#card-1 li, #card-2 .content, #card-3 li{
   line-height: 2.6;
   font-size: 1rem;
 }

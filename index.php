@@ -20,6 +20,7 @@
     <?php include("components/header/header.php")?>
     <?php include("components/hero/hero.html")?>
     <?php include("components/about-us/about-us.html")?>
+    <?php include("components/facilities/facilities.php")?>
     <script src="js/header.js"></script>
 </body>
 </html>
