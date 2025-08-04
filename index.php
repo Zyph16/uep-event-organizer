@@ -22,5 +22,6 @@
     <?php include("components/about-us/about-us.html")?>
     <?php include("components/facilities/facilities.php")?>
     <script src="js/header.js"></script>
+    <script src="js/facilities.js"></script>
 </body>
 </html>
