@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderSlides() {
   const visibleSlides = [];
 
-  const maxOffset = cards.length >= 5 ? 2 : Math.floor((cards.length - 1) / 2);
+  const maxOffset = cards.length >=  2 ? 2 : Math.floor((cards.length - 1) / 2);
 
   for (let i = -maxOffset; i <= maxOffset; i++) {
     let index = (currentIndex + i + cards.length) % cards.length;
     visibleSlides.push({
-      ...cards[index],            // <- Use spread to avoid needing `.content`
+      ...cards[index],           
       isActive: i === 0
     });
   }
@@ -26,35 +26,65 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="slide ${slide.isActive ? "active" : ""}">
         <div class="card">
           <img src="${slide.image_path}" alt="${slide.FacilityName}"
-          style = "width : 100%; height : 100%; border-radius : 30px;"/>
+          style = "width : 100%; height : 100%; border-radius : 55px;"/>
         </div>
       </div>`
     )
     .join("");
 
-  updateSlideScale(); // Keep the scale effect applied
+  updateSlideScale();
   
 
 }
 
+function renderSlideIndicators() {
+  const indicatorsContainer = document.getElementById("slideIndicators");
+  indicatorsContainer.innerHTML = "";
 
-  // Animate to the left or right
+  const totalIndicators = cards.length;
+  const maxVisibleDots = 5;
+
+  // Determine the starting index for the visible dots window
+  let start = Math.floor(currentIndex / maxVisibleDots) * maxVisibleDots;
+  let end = Math.min(start + maxVisibleDots, totalIndicators);
+
+ 
+
+  for (let i = start; i < end; i++) {
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+
+    dot.textContent = cards[i].FacilityID;
+    if (i === currentIndex) {
+      dot.classList.add("active");
+    }
+    dot.addEventListener("click", () => {
+      currentIndex = i;
+      renderSlides();
+      renderSlideIndicators();
+    });
+
+  
+    indicatorsContainer.appendChild(dot);
+  }
+}
+
+
+
   let isAnimating = false;
 
   function updateSlideScale() {
   const slides = document.querySelectorAll(".slide");
-  const centerIndex = Math.floor(slides.length / 2); // middle of visible area
+  const centerIndex = Math.floor(slides.length / 2); 
 
   slides.forEach((slide, index) => {
     const distance = Math.abs(index - centerIndex);
     
-    // Scale and opacity falloff based on distance from center
-    const scale = 1 - 0.3 * distance; // shrink 20% per step away
-    const opacity = 1 - 0.3 * distance;
+   
+    const scale = 1 - 0.3 * distance;
 
     slide.style.transform = `scale(${scale})`;
-    slide.style.opacity = opacity;
-    slide.style.zIndex = 10 - distance; // Ensure center is on top
+    slide.style.zIndex = 10 - distance;
   });
 }
 
@@ -65,25 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".slide");
   const centerIndex = Math.floor(slides.length / 2);
 
-  // Prepare animation
+
   slides.forEach((slide, index) => {
     const distance = index - centerIndex;
 
-    // Predict next distance after slide
     const nextDistance =
       direction === "next" ? distance - 1 : distance + 1;
 
     const scale = 1 - 0.3 * Math.abs(nextDistance);
-    const opacity = 1 - 0.3 * Math.abs(nextDistance);
     const zIndex = 100 - Math.abs(nextDistance);
 
-    slide.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+    slide.style.transition = "transform 0.5s ease";
     slide.style.transform = `translateX(${direction === "next" ? -280 : 280}px) scale(${scale})`;
-    slide.style.opacity = opacity;
     slide.style.zIndex = zIndex;
   });
 
-  // Wait for animation, then re-render
+ 
   setTimeout(() => {
     sliderTrack.style.transition = "none";
     sliderTrack.style.transform = "translateX(0)";
@@ -92,7 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ? (currentIndex + 1) % cards.length
         : (currentIndex - 1 + cards.length) % cards.length;
 
-    renderSlides(); // redraw new center
+      
+    renderSlides();
+    renderSlideIndicators();  
     isAnimating = false;
   }, 500);
 }
@@ -101,6 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       cards = data;
       renderSlides();
+      renderSlideIndicators(); // ← Add this
+      updateSlideScale();
     })
   .catch((err) => console.error("Error Loading images:", err));
   
@@ -118,5 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
   prevBtn.addEventListener("click", () => slide("prev"));
   nextBtn.addEventListener("click", () => slide("next"));
 
-  renderSlides(); // Initial render
+  renderSlides();
+  
 })

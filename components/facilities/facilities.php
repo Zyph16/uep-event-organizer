@@ -13,6 +13,7 @@
         <button id="prev-btn">
             <span class="material-symbols-outlined">arrow_back_ios_new</span>
         </button>
+        <div id="slideIndicators" class="slide-indicators"></div>
         <button id="next-btn">
             <span class="material-symbols-outlined">arrow_forward_ios</span>
         </button>

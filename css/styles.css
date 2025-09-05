@@ -107,7 +107,7 @@ body{
     color: #989797;
 }
 .hero-left h1,h3{
-    padding: 0 20px 10px 20px;
+    padding: 0 20px 10px 0;
     margin: 0;
 }
 .hero-left h3{
@@ -119,7 +119,7 @@ body{
     line-height: 1;
 }
 .hero-left button{
-    margin: 20px 0 0 20px;
+    margin: 20px 0 0 0;
     padding: 15px;
     background-color: #3d75ee;
     color: #f1f4fb;
@@ -137,41 +137,112 @@ body{
 .hero-left-content{
     position: absolute;
     top: 5%;
-    left: 15%;
+    left: 13%;
 }
-.hero-right{
+.hero-right {
     position: relative;
 }
-.hero-right-content{
+
+.hero-right-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 600px;
-    height: 450px;
-    border-radius: 50px;
+    width: 700px;             /* fixed size */
+    height: 450px;            /* fixed size */
+    border-radius: 20px;
     background-color: #ffffff;
-    box-shadow: 0 1px 5px #cbcbcb;
+    box-shadow: 0 3px 5px #000000;
     position: absolute;
     top: 45%;
     left: 45%;
     transform: translate(-50%, -50%);
+    overflow: hidden;         /* crop if needed */
 }
-.hero-right-content img{
-  width: 100%;
-  height: 100%;
-  object-fit:cover n;
-  border-radius: 50px;
+
+/* Make the calendar take full space */
+#calendar {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
 }
-.about-us{
-    width: 1350px;
-    height: 600px;
+
+
+/* Header toolbar */
+.fc .fc-toolbar {
+  margin-bottom: 1rem;
+}
+.fc-toolbar-chunk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px; /* spacing between items */
+}
+.fc .fc-toolbar-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2b223f;
+}
+
+/* Buttons */
+.fc .fc-button {
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+.fc .fc-button:hover {
+  background-color: #357abd;
+}
+
+.fc .fc-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Today's date highlight */
+.fc .fc-day-today {
+  background: rgba(74, 144, 226, 0.15) !important;
+  border: 2px solid #4a90e2 !important;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* Grid cells */
+.fc .fc-daygrid-day-frame {
+  padding: px;
+  transition: background 0.2s;
+}
+
+.fc .fc-daygrid-day-frame:hover {
+  background: #f7faff;
+  border-radius: 8px;
+}
+
+/* Events */
+.fc-event {
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 4px 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff !important;
+}
+
+.about-us {
+    max-width: 1350px;
+    width: 100%; 
+    height: auto;
+    margin: 0 auto 50px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 50px;
     position: relative;
-    top: 0;
 }
+  
 .intro-text{
   text-align: center;
   display: flex;
@@ -179,17 +250,16 @@ body{
   align-items: center;
   flex-direction: column;
   width: 80%;
-  margin: 0;
+  margin-bottom: 20px;
 }
 .intro-text p{
   margin: 20px ;
 }
 .card-container{
+  width: 100%;
   display: flex;
-  position: absolute;
-  top: 65%;
-  left: 53%;
-  transform: translate(-50%,-50%);
+  justify-content: center;
+  align-items: center;
 }
 .about-us-card {
   display: flex;
@@ -198,7 +268,6 @@ body{
   background-color: #2b223f;
   border-radius: 30px;
   box-shadow: 1px 0 10px #0000008c;
-  margin-left: -80px;
   transition: 0.4s ease-out;
   position: relative;
   left: 0px;
@@ -280,6 +349,11 @@ body{
 .facility-header h1{
   margin: 0;
 }
+.slider-btns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .slider-container{
   width: 100%;
   height: 80%;
@@ -289,13 +363,13 @@ body{
 }
 
 .slider-track-wrapper {
-  width: 78%; 
+  max-width: 1063px;
   height: 100%;
   overflow: hidden;
   position: relative;
   display: flex;
   justify-content: center;
-   
+  align-items: center;
 }
 
 .slider-track {
@@ -313,7 +387,7 @@ body{
   justify-content: center;
   align-items: center;
   transform: scale(0.8);
-  opacity: 0.5;
+  opacity: 1;
   transition: transform 0.5s ease, opacity 0.5s ease;
 
 }
@@ -322,19 +396,148 @@ body{
   transform: scale(1);
   opacity: 1;
   justify-content: center;
+  
 }
 
 .card {
   width: 100%;
   height: 400px;
-  background-color: #2b223f;
-  border-radius: 30px;
-  box-shadow: 1px 0 10px #0000008c;
+  border-radius: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   font-size: 1.2rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   margin: 0 ;
+  
+}
+
+#slideIndicators {
+  display: flex;
+  justify-content: center;   
+  align-items: center;      
+  flex-wrap: nowrap;        
+  gap: 6px;
+  margin: 20px 10px;        
+}
+
+
+.dot {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.dot.active {
+  background-color: #6831cf;
+  color: #ffffff;
+}
+
+.login{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+
+}
+.uep-logo-form {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 0 auto 10px auto;
+  
+}
+.uep-logo-form img{
+  width: 100%;
+  height: 100%;
+}
+.login-box{
+  width: 400px;
+  height: 500px;
+  border: #ffffff 1px solid;
+  border-radius: 50px;
+  z-index: 1;
+  background-color: white;
+  backdrop-filter: blur(50px);
+  margin-top: 2%;
+}
+
+.login-wrapper{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.tabs{
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  margin-bottom: 50px;
+}
+#login-form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+#login-form button{
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1f3c88;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-top: 50px;
+}
+#login-form button:hover{
+  filter: brightness(1.5);
+}
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+.form-group label{
+  font-weight: 900;
+  color: #8a8fef;
+}
+.form-group input{
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  border: rgb(138, 138, 252) 1px solid;
+  padding: 10px;
+}
+.form-group input:focus{
+  outline: none;
+  border: rgb(118, 118, 243) 2px solid;
+}
+#login-girl{
+  width: 80%;
+  height: 80%;
+  bottom: 15%;
+  right: -15%;
+  position: absolute;
+}
+#login-bro{
+  width: 80%;
+  height: 80%;
+  bottom: 10%;
+  left: 0;
+  position: absolute;
+}
+#calendar-bro{
+  width: 30%;
+  height: 30%;
+  top: 5%;
+  left: -2%;
+  position: absolute;
 }

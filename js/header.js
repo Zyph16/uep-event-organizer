@@ -3,7 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const profileDropdown = document.querySelector('.profile-dropdown');
 
     profileIcon.addEventListener('click', () =>{
-        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+        const isVisible = profileDropdown.style.display === 'block';
+        profileDropdown.style.display = isVisible ? 'none' : 'block';
+
+        profileIcon.style.color = isVisible ? '' : '#1f3c88';
+        // profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+
+        // profileIcon.style.color = '#1f3c88';
     });
     requestAnimationFrame(() => {
         const rect = profileDropdown.getBoundingClientRect();
@@ -21,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('click', (e) => {
         if(!e.target.closest('.profile-container')){
             profileDropdown.style.display ='none';
+             profileIcon.style.color = '';
         }
     })
 })
